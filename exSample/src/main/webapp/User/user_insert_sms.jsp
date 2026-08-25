@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>회원등록</title>
+<title>회원등록(SMS 본인 인증)</title>
 <STYLE TYPE="text/css">
 <!--
 body { font-family: 돋움, Verdana; font-size: 9pt}
@@ -16,7 +16,6 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 </STYLE>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script type="text/javascript">
-
 $(function(){
 	$("#smscheck").hide();
 	$("#emailcheck").hide();
@@ -36,7 +35,7 @@ $(function(){
            	$("#emailcheck").hide();
         }
     });
-	
+
 	//$("input[name='userid']").on("change",function(){
 	$("#userid").on("change",function(){
 		var userid=$('#userid').val();
@@ -86,25 +85,50 @@ $(function(){
 		
 		//전화
 		
+		//인증유무 검사
+		if($("#resms").val()==''){
+			alert("본인 인증을 진해하세요");
+			$("#resms").focus();
+			return;
+		}
+		
 		$("#user").submit();
 	
-	});
-
-	//이메일 체크(직접입력 또는 선택)
-	$("#email3").on("change",function(){
-		if($("#email3").prop("selectedIndex") !=0 ){
-			$('#email2').prop('readonly', true);//읽기 전용으로
-			$('#email2').val($("#email3").val());
-		}else{
-			$('#email2').prop('readonly', false);//읽기 전용 해제
-			$('#email2').val('');
-		}
 	});
 	
 	//핸드폰 인증하기 버튼 클릭시
 	$("#phoneBtn1").click(function(){
+		//전환번호 체크
+		if($("#tel").val()==''){
+			alert("전화번호를 입력하세요");
+			$("#tel").focus();
+			return;
+		}
+		var phone = $("#tel").val();
+		//ajax
+		$.ajax({
+			url:'/User?cmd=userSMSCheck',
+			type:'post',
+			data:{'phone':phone},
+			success:function(result){
+				phone_c.innerHTML="인증번호가 전송되었습니다";
+				$("#usersms").val(result);
+			}
+		});
 		$("#smscheck").show();
 
+	});
+	
+	//인증하기
+	$("#phoneBtn3").click(function(){
+		if($("#usersms").val() == $("#resms").val()){
+			resms_c.innerHTML="인증되었습니다";
+			$('#resms').prop('readonly', true);//읽기 전용으로
+		}else{
+			resms_c.innerHTML="인증번호가 맞지않습니다";
+			$("#resms").val('');
+			$("#resms").focus();
+		}
 	});
 	
 	//이메일 인증하기 버튼 클릭시
@@ -112,6 +136,7 @@ $(function(){
 		$("#emailcheck").show();
 
 	});
+
 	
 });//$(function()끝
 		
@@ -133,6 +158,7 @@ $(function(){
   </td>
   <td width="80%" valign="top">&nbsp;<img src="/Images/img/title1.gif" ><br>    
 	<form id="user" name="user" method=post action="/User?cmd=userWritePro">
+	<input type="hidden" id="usersms" name="usersms">
 	<table border=0 cellpadding=0 cellspacing=0 width=730 valign=top>
 		<tr><td align=center><br>                            
 			<table cellpadding=0 cellspacing=0 border=0 width=650 align=center>       
@@ -141,7 +167,7 @@ $(function(){
 						<table cellpadding=0 cellspacing=0 border=0 width=100%>
 							<tr bgcolor=#7AAAD5>
 								<td align=left BORDER="0" HSPACE="0" VSPACE="0"><img src="/Images/img/u_b02.gif"></td>
-								<td align=center bgcolor="#7AAAD5"><FONT COLOR="#FFFFFF"><b>사용자등록&nbsp;</b><font color=black>(</font><font color=red>&nbsp;*&nbsp;</font><font color=black>표시항목은 반드시 입력하십시요.)</font></FONT></td>
+								<td align=center bgcolor="#7AAAD5"><FONT COLOR="#FFFFFF"><b>사용자등록(SMS 본인인증)&nbsp;</b><font color=black>(</font><font color=red>&nbsp;*&nbsp;</font><font color=black>표시항목은 반드시 입력하십시요.)</font></FONT></td>
 								<td align=right BORDER="0" HSPACE="0" VSPACE="0"><img src="/Images/img/u_b03.gif"></td>
 							</tr>
 						</table>
@@ -180,12 +206,6 @@ $(function(){
 									<font id=repasswd_c color=red>&nbsp;*비밀번호 확인을 위해서 비밀번호를 한번 더 입력해주세요. </font> 
 								</td>
 							</tr>
-							<tr>
-								<TD BGCOLOR="#EFF4F8">&nbsp;인증 방법 선택<font color=red>&nbsp;*</font></td>
-								<TD BGCOLOR=WHITE><input type=radio id="mode1" name=mode value="핸드폰" checked>핸드폰
-									<input type=radio id="mode2" name="mode" value="이메일" >이메일
-								</td>
-							</tr>
 							<tr id="phone">
 								<TD BGCOLOR="#EFF4F8">&nbsp;전화번호<font color=red>&nbsp;*</font></td>
 								<TD BGCOLOR=WHITE>
@@ -203,15 +223,15 @@ $(function(){
                     				<input type="button" value="인증" id="phoneBtn3">
                     				<font id="resms_c" size="2" color="red">&nbsp;</font>
 								</td>
-							</tr>			
+							</tr>							
 							<tr id="email">
 								<TD BGCOLOR="#EFF4F8">&nbsp;E-mail
                 					<font color=red>&nbsp;</font>
 								</td>
 								<td bgcolor=WHITE valign=middle>
-									<input type="text" id="email1" name="email1" size=13 maxlength="15">
-									@ <input type="text" id="email2" name="email2" size=13 maxlength="15">
-									<select id="email3" name="email3">
+									<input type="text" name="email1" size=13 maxlength="15">
+									@ <input type="text" name="email2" size=13 maxlength="15">
+									<select name="email2">
 		      							<option value="0">직접입력</option>
 		      							<option value="naver.com">naver.com</option>
 		      							<option value="daum.net">daum.net</option>
@@ -231,6 +251,7 @@ $(function(){
                     				<font id="reemail_c" size="2" color="red">&nbsp;</font>
 								</td>
 							</tr>							
+							
 						</table>
 						<table cellpadding=0 cellspacing=0 border=0 width=100%>
 							<tr bgcolor=#7AAAD5>

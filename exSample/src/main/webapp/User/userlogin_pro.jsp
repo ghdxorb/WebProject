@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:if test="${row==0}">
+<c:if test="${empty user}">
 	<script>
 		alert("아이디 또는 비밀번호가 맞지않습니다");
 		history.back();
@@ -51,6 +51,7 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
     <td align="center">
       <a href="#">[자기정보수정]</a>
       <a href="#">[로그아웃]
+      <a href="/">[홈으로]
 
 	</td>
   </tr>

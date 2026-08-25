@@ -15,7 +15,9 @@ public class UserWriteService implements Action {
 	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd = request.getRequestDispatcher("/User/user_insert.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/User/user_insert.jsp");//회원가입 기본폼
+		//RequestDispatcher rd = request.getRequestDispatcher("/User/user_insert_email.jsp");//회원가입(Email 보인인증)폼
+		//RequestDispatcher rd = request.getRequestDispatcher("/User/user_insert_sms.jsp");//회원가입(SMS 보인인증)폼
 		rd.forward(request, response);
 
 	}

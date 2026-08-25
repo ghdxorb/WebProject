@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mnu.sample.service.Action;
+import com.mnu.sample.service.user.UserIdCheckService;
+import com.mnu.sample.service.user.UserLoginProService;
 import com.mnu.sample.service.user.UserLoginService;
 import com.mnu.sample.service.user.UserLogoutService;
 import com.mnu.sample.service.user.UserModifyProService;
 import com.mnu.sample.service.user.UserModifyService;
 import com.mnu.sample.service.user.UserWriteProService;
+import com.mnu.sample.service.user.UserWriteSMSService;
 import com.mnu.sample.service.user.UserWriteService;
 
 /**
@@ -44,11 +47,15 @@ public class UserController extends HttpServlet {
 		if(cmd.equals("userLogin")) {//로그인 폼
 			action = new UserLoginService();
 		}else if(cmd.equals("userLoginPro")) {//로그인처리
-			//
+			action = new UserLoginProService(); 
 		}else if(cmd.equals("userLogout")) {//로그아웃
 			action = new UserLogoutService();
 		}else if(cmd.equals("userWrite")) {//회원가입
 			action = new UserWriteService();
+		}else if(cmd.equals("userIdCheck")) {//id중복검사
+			action = new UserIdCheckService();	
+		}else if(cmd.equals("userSMSCheck")) {//핸드폰 인증
+			action = new UserWriteSMSService();
 		}else if(cmd.equals("userWritePro")) {//회원가입처리
 			action = new UserWriteProService();
 		}else if(cmd.equals("userModify")) {//회원정보수점폼

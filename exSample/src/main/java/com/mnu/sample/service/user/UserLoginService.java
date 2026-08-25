@@ -15,7 +15,8 @@ public class UserLoginService implements Action {
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/");
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/User/user_login.jsp");
 		rd.forward(request, response);
 	}
 

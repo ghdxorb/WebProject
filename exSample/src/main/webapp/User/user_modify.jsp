@@ -17,7 +17,62 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script type="text/javascript">
 $(function(){
-	$(#smscheck).hide();
+	
+  /*	
+	//$(#smscheck).hide();
+	//$("input[name='userid']").on("change",function(){
+	$("#userid").on("change",function(){
+		var userid=$('#userid').val();
+		//alert(userid);
+		$.ajax({
+			url:'/User?cmd=userIdCheck',
+			type:'post',
+			data:{'userid':userid},
+			success:function(result){
+				if(result==0){
+					//중복된 아이디가 없는 경우
+					userID_c.innerHTML='사용가능한 아이디 입니다';
+				}else{
+					//ID 중복시
+					userID_c.innerHTML='중복된 아이디 입니다';
+					$("#userid").val('');
+					$("#userid").focus();
+				}
+			}
+		});
+	});
+	*/
+	//비번 확인
+	$("#repasswd").on("change",function(){
+		var passwd = $("#passwd").val();
+		var repasswd = $("#repasswd").val();
+		if(passwd==repasswd){
+			repasswd_c.innerHTML="확인되었습니다";
+		}else{
+			repasswd_c.innerHTML="비밀번호를 확인해 주세요";
+			$("#repasswd").val('');
+			$("#repasswd").focus();
+		}
+	});
+	
+	//유효성 검사
+	$("#btn_write").click(function(){
+		//이름검사
+		if($("#name").val()==''){
+			alert("이름을 입력하세요");
+			$("#name").focus();
+			return;
+		}
+		//비번
+		
+		//비번검사
+		
+		//전화
+		
+		$("#user").submit();
+	
+	});
+	
 	
 	
 });
@@ -38,7 +93,7 @@ $(function(){
 	
   </td>
   <td width="80%" valign="top">&nbsp;<img src="/Images/img/title1.gif" ><br>    
-	<form name="user" method=post action="user_insert">
+	<form id="user" name="user" method=post action="/User?cmd=userModifyPro">
 	<table border=0 cellpadding=0 cellspacing=0 width=730 valign=top>
 		<tr><td align=center><br>                            
 			<table cellpadding=0 cellspacing=0 border=0 width=650 align=center>       
@@ -55,7 +110,7 @@ $(function(){
 							<tr>
 								<td width=110 bgcolor=#EFF4F8>&nbsp;회원 성명<font color=red>&nbsp;*</font></td>
 								<TD BGCOLOR=WHITE>
-									<input type=text id=name name=name size=16 maxlength=20 value="" placeholder="성명은 빈칸없이 입력하세요.">
+									<input type=text id=name name=name size=16 maxlength=20 value="${user.name}" readonly placeholder="성명은 빈칸없이 입력하세요.">
 								</td>
 							</tr>
 							<tr>
@@ -64,7 +119,7 @@ $(function(){
 									<table cellspacing=0 cellpadding=0>
 										<tr>
 											<td align=absmiddle>
-												<input type=text id=userid name=userid size=12 maxlength=16 value="" style="width:120">
+												<input type=text id=userid name=userid size=12 maxlength=16 value="${user.userid}" readonly style="width:120">
 											</td>
 											<td id="userID_c">
                   								[ 5~16자 이내의 영문이나 숫자만 가능합니다. ]
@@ -89,7 +144,7 @@ $(function(){
 							<tr>
 								<TD BGCOLOR="#EFF4F8">&nbsp;전화번호<font color=red>&nbsp;*</font></td>
 								<TD BGCOLOR=WHITE>
-									<input type=text id=tel name=tel size=13 maxlength=13 value="" placeholder="휴대전화번호 (-제외)">
+									<input type=text id=tel name=tel size=13 maxlength=13 value="${user.tel}" placeholder="휴대전화번호 (-제외)">
 									<input type="button" id="phoneBtn1" value="인증번호받기">
 									<font id="phone_c" size="2" color="red">&nbsp;</font>
 								</td>
@@ -109,7 +164,7 @@ $(function(){
                 					<font color=red>&nbsp;</font>
 								</td>
 								<td bgcolor=WHITE valign=middle>
-									<input type="text" name="email1" size=13 maxlength="15">
+									<input type="text" name="email1" size=13 maxlength="15" value="${user.email }">
 									@ <input type="text" name="email2" size=13 maxlength="15">
 									<select name="email2">
 		      							<option value="0">직접입력</option>
@@ -134,8 +189,8 @@ $(function(){
 							</tr>
 							<tr bgcolor=#ffffff>
 								<td colspan=3 align=center>
-									<img src="/Images/img/u_bt06.gif" vspace=3 border=0 name=img3>
-									<img src="/Images/img/u_bt05.gif" border=0 hspace=10 vspace=3 name=img4>
+									<img src="/Images/img/u_bt06.gif" vspace=3 border=0 id="btn_write">
+									<img src="/Images/img/u_bt05.gif" border=0 hspace=10 vspace=3 id="btn_cancle" name=img4>
 								</td>
 							</tr>
 						</table> 

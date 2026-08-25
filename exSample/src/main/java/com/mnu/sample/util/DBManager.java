@@ -9,8 +9,9 @@ public class DBManager {
 	public static Connection getConnection() {
 		Connection conn = null;
 		String myDriver="oracle.jdbc.OracleDriver";
-		String myURL="jdbc:oracle:thin:@localhost:41521:xe";
-		String myID="c##sample";
+		//String myURL="jdbc:oracle:thin:@localhost:1521/xe";//21c
+		String myURL="jdbc:oracle:thin:@localhost:1521/freepdb1";//26ai
+		String myID="sample";
 		String myPass="1234";
 
 		try {
