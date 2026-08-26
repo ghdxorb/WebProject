@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mnu.sample.service.Action;
 import com.mnu.sample.service.pds.PdsListService;
+import com.mnu.sample.service.pds.PdsWriteService;
 
 /**
  * Servlet implementation class PdsController
@@ -37,6 +38,8 @@ public class PdsController extends HttpServlet {
 		Action action = null;
 		if(cmd.equals("pdsList")) {
 			action = new PdsListService();
+		}else if(cmd.equals("pdsWrite")) {
+			action = new PdsWriteService();
 		}
 		
 		action.process(request, response);

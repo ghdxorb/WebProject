@@ -75,7 +75,7 @@
           <td align=center>
 			<img src="/Images/img/purple_save.gif" width="56" height="18" border="0">
 			<img src="/Images/img/purple_cancle.gif" width="56" height="18" border="0">
-		  	<button name = "addStaff" > 정산 담당자 추가 </button> 
+		  	<button name = "addStaff" > 파일추가 </button> 
 		  </td>
         </tr>
       </table>

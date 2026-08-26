@@ -4,7 +4,7 @@
 
 <html>
    <head><title>게시판 작성</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+   
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -25,13 +25,38 @@
 		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
           
 		});
+		
+		$("#btn_send").click(function(){
+			if($("#name").val()==''){
+				alert("이름을 입력하세요");
+				$("#name").focus();
+				return;
+			}
+			if($("#subject").val()==''){
+				alert("제목을 입력하세요");
+				$("#subject").focus();
+				return;
+			}
+			if($("textarea[name='contents']").val()==''){
+				alert("내용을 입력하세요");
+				$("textarea[name='contents']").focus();
+				return;
+			}
+			if($("#pass").val()==''){
+				alert("비밀번호을 입력하세요");
+				$("#pass").focus();
+				return;
+			}
+			
+			$("#board").submit();
+		});
+		
+		$("#btn_cancle").click(function(){
+			history.back();
+		});
+
 	});
 
-	function send(){
-		alert("등록합니다");
-		board.submit();
-		
-	}
 </script>
 
 </head>
@@ -49,25 +74,19 @@
      <font size="2"> - 글쓰기</font><p>
      <img src="/Images/img/bullet-03.gif"><font size="2" face="돋움" color="orange"> 잠깐</font> &nbsp;
      <img src="/Images/img/bullet-02.gif"><font size="2" face="돋움">는 필수 입력 사항입니다.</font><p>
-     <form method="post">
+     <form id="board" name="name" method="post" action="/BoardPhoto?cmd=boardPhotoWritePro">
 
 	  <table border="0">
        <tr>
          <td width="5%" align="right"><img src="/Images/img/bullet-02.gif"></td>
-         <td width="15%"><font size="2 face="돋움"">글쓴이</font></td>
+         <td width="15%"><font size="2" face="돋움">글쓴이</font></td>
          <td width="80%">
-         <input type="text" size="20" name="name"></td>
-       </tr>
-       <tr>
-         <td align="right">&nbsp;</td>
-         <td ><font size="2 face="돋움"">메일주소</font></td>
-         <td>
-          <input type="text" size="20" name="email"></td>
+         <input type="text" size="20" id="name" name="name"></td>
        </tr>
 	   <tr>
          <td align="right"><img src="/Images/img/bullet-02.gif"></td>
          <td><font size="2" face="돋움">제목</font></td>
-         <td><input type="text" size="60" name="subject" ></td>
+         <td><input type="text" size="60" id="subject" name="subject" ></td>
        </tr>
        <tr>
          <td align="right"><img src="/Images/img/bullet-02.gif"></td>
@@ -77,15 +96,15 @@
 	   <tr>
          <td align="right"><img src="/Images/img/bullet-02.gif"></td>
          <td><font size="2" face="돋움">비밀번호</font></td>
-          <td><input type="password" size="10" name="pass" ><font size="2" face="돋움">*.수정과 삭제시 꼭 입력하셔야 합니다.</font></td>
+          <td><input type="password" size="10" id="pass" name="pass" ><font size="2" face="돋움">*.수정과 삭제시 꼭 입력하셔야 합니다.</font></td>
         </tr>
         <tr></tr>
 		<tr>
           <td align="right">&nbsp;</td>
           <td><font size="2">&nbsp;</font></td>
           <td>
-                     <a href="#"><img src="/Images/img/save.gif" border=0></a>&nbsp;&nbsp;&nbsp;
-                     <a href="#"><img src="/Images/img/cancle.gif" border=0></a>
+                <img src="/Images/img/save.gif" border=0 id="btn_send">&nbsp;&nbsp;&nbsp;
+                <img src="/Images/img/cancle.gif" border=0 id="btn_cancle">
           </td>
         </tr>
       </table>
