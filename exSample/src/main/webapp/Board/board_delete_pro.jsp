@@ -4,9 +4,9 @@
     
 <c:if test="${row==1}">
 	<script>
-		//opener.location.href="/Board?cmd=boardList";//객체
+		//opener.location.href="/Pds?cmd=boardList";//객체
 		//새로운 페이지로 이동
-		opener.location.replace("/Board?cmd=boardList");//메소드
+		opener.location.replace("/Pds?cmd=pdsList");//메소드
 		//기존페이지를 새로운페이지로변경
 		self.close();
 	</script>

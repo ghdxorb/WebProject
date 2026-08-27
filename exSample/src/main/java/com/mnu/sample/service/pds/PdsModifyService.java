@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mnu.sample.model.PdsDAO;
+import com.mnu.sample.model.PdsDTO;
 import com.mnu.sample.service.Action;
 //자료실 목록
 public class PdsModifyService implements Action {
@@ -14,8 +16,15 @@ public class PdsModifyService implements Action {
 	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		int idx = Integer.parseInt(request.getParameter("idx"));
+
+		PdsDAO pDAO = PdsDAO.getInstance();
+
+		PdsDTO pDTO = pDAO.pdsSearch(idx);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/Pds2/pds_write2.jsp");
+		request.setAttribute("pDTO", pDTO);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/Pds/pds_modify.jsp");
 		rd.forward(request, response);
 
 	}

@@ -147,7 +147,7 @@ public class BoardDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}
 		return row;
 	}
@@ -163,7 +163,7 @@ public class BoardDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}	
 	}
 	//특정글(idx)에 해당하는 글 검색 반환
@@ -186,7 +186,7 @@ public class BoardDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}
 		return bDTO;
 	}
@@ -210,7 +210,7 @@ public class BoardDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}
 		return row;
 	}
@@ -230,7 +230,7 @@ public class BoardDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}
 		return row;
 	}

@@ -1,6 +1,8 @@
 package com.mnu.sample.service.pds;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.javax.JavaxServletFileUpload;
 
+import com.mnu.sample.model.PdsDAO;
+import com.mnu.sample.model.PdsDTO;
 import com.mnu.sample.service.Action;
 //자료실 목록
 public class PdsWriteProService implements Action {
@@ -50,7 +54,7 @@ public class PdsWriteProService implements Action {
 		FileItem file = (FileItem)iter.next();
 		String filename = file.getName();//경로를 제외한 이름
 		String pass = ((FileItem)iter.next()).getString();
-		
+/*		
 		//테스트
 		System.out.println("이름 : " + name);
 		System.out.println("이메일 : " + email);
@@ -58,9 +62,41 @@ public class PdsWriteProService implements Action {
 		System.out.println("내용 : " + contents);
 		System.out.println("파일명 : " + filename);
 		System.out.println("비번 : " + pass);
+*/		
+		//파일저장
+		if(filename != null && !filename.equals("")) {
+			Path path2 = Paths.get(path+filename);
+			file.write(path2);
+		}
 		
+		//DB 저장
+		PdsDAO pDAO = PdsDAO.getInstance();
+		PdsDTO pDTO = new PdsDTO();
 		
+		pDTO.setName(name);
+		pDTO.setEmail(email);
+		pDTO.setSubject(subject);
+		pDTO.setContents(contents);
+		pDTO.setFilename(filename);
+		pDTO.setPass(pass);
 		
+		int row = pDAO.pdsWrite(pDTO);
+		String referer = request.getHeader("referer");//직전에 방문했던 페이지의 URL
+		if(row==1) {
+			response.sendRedirect("/Pds?cmd=pdsList");
+		}else {
+			response.sendRedirect(referer);
+	/*
+	  		response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>");
+			out.println("alert('메시지 출력');");
+			out.println("history.go(-1);"); // 또는 history.back();
+			out.println("</script>");		
+	 */
+		
+		}
 		
 	}
 

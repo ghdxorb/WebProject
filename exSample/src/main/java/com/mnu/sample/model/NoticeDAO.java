@@ -137,7 +137,7 @@ public class NoticeDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}
 		return row;
 	}
@@ -153,7 +153,7 @@ public class NoticeDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}	
 	}
 	//공지사항 특정글(idx)에 해당하는 글 검색 반환
@@ -198,7 +198,7 @@ public class NoticeDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}
 		return row;
 	}
@@ -217,7 +217,7 @@ public class NoticeDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, pstmt, rs);
+			DBManager.close(conn, pstmt);
 		}
 		return row;
 	}

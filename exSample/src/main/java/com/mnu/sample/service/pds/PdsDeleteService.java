@@ -14,8 +14,11 @@ public class PdsDeleteService implements Action {
 	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		int idx = Integer.parseInt(request.getParameter("idx"));
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/Pds2/pds_write2.jsp");
+		request.setAttribute("idx", idx);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/Pds/pds_delete.jsp");
 		rd.forward(request, response);
 
 	}
