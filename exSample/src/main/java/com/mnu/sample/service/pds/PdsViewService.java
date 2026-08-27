@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mnu.sample.service.Action;
 //자료실 목록
-public class PdsWriteService implements Action {
+public class PdsViewService implements Action {
 
 	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/Pds/pds_write.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/Pds/pds_list.jsp");
 		rd.forward(request, response);
 
 	}
