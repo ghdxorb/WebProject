@@ -51,16 +51,18 @@
          <td class="title">
            <img src="/Images/img/bullet-04.gif">   
            <font size="2" face="돋움">${pDTO.subject}</font></td></tr>
-  <tr>  
-    <td class="content">
-    <p align="right"><font size="2" face="돋움">  
-			${pDTO.name} / ${pDTO.regdate} / ${pDTO.readcnt}번 읽음
-    <p>${pDTO.contents}<p>
-	<c:if test="${!empty pDTO.filename}">	
-		<img src="/Images/img/disk.gif" align="middle" width="22" height="20" border="0">&nbsp;
-		<a href="javascript:pds_down('${pDTO.filename}')">[ ${pDTO.filename} ]</a>	
-	</c:if>
-	</font></td></tr>
+  		<tr>  
+    		<td class="content">
+    			<p align="right"><font size="2" face="돋움">  
+					${pDTO.name} / ${pDTO.regdate} / ${pDTO.readcnt}번 읽음
+    			<p>${pDTO.contents}<p>
+				<c:if test="${!empty pDTO.filename}">	
+					<img src="/Images/img/disk.gif" align="middle" width="22" height="20" border="0">&nbsp;
+					<a href="javascript:pds_down('${pDTO.filename}')">[ ${pDTO.filename} ]</a>	
+				</c:if>
+				</font>
+			</td>
+		</tr>
   </table>
   <p align="center">
   <font size="2">

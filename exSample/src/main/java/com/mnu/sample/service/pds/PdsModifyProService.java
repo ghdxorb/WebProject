@@ -43,7 +43,6 @@ public class PdsModifyProService implements Action {
 		Iterator iter = items.iterator();
 
 		int idx = Integer.parseInt(((FileItem)iter.next()).getString());
-		String nowpage = ((FileItem)iter.next()).getString();
 		String filename1 = ((FileItem)iter.next()).getString();
 
 		String name = ((FileItem)iter.next()).getString();
